@@ -1,9 +1,9 @@
 // controllers/authController.js
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Admission = require('../../modle/auth');
+const Admission = require('../models/profile');
 
-async function registerUser(req, res) {
+async function createProfile(req, res) {
     try {
         const userData = req.body;
 
@@ -35,7 +35,7 @@ async function registerUser(req, res) {
     }
 }
 
-async function loginUser(req, res) {
+async function login(req, res) {
     try {
         // Extract username and password from request body
         const { username, password } = req.body;
@@ -57,7 +57,16 @@ async function loginUser(req, res) {
     }
 }
 
+async function profileDetails(req,res){
+    try {
+        return res.status(200).json({ statusCode:200,message: 'profile details' });
+    } catch (error) {
+        res.status(400).send({ error: 'Profile Details Not Found' });
+    }
+} 
+
 module.exports = {
-    registerUser,
-    loginUser
+    createProfile,
+    login,
+    profileDetails
 };
